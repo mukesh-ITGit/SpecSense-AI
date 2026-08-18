@@ -1,0 +1,35 @@
+{
+  "required_fields": [
+    "part_number",
+    "brand",
+    "manufacturer",
+    "category",
+    "product_type"
+  ],
+  "character_limits": {
+    "product_title": 100,
+    "invoice_description": 50,
+    "mobile_description": 60,
+    "long_description": 500
+  },
+  "uom_normalization": {
+    "\"": "in",
+    "inch": "in",
+    "inches": "in",
+    "IN": "in",
+    "pc": "pk",
+    "pcs": "pk"
+  },
+  "trust_score_weights": {
+    "completeness": 25,
+    "validation": 25,
+    "source_reliability": 25,
+    "extraction_confidence": 25,
+    "conflict_penalty_weight": 10
+  },
+  "trust_levels": {
+    "HIGH": 90,
+    "GOOD": 75,
+    "MEDIUM": 50
+  }
+}

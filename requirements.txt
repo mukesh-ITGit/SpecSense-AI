@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pytest
+httpx
+python-multipart
+pandas
+openpyxl
+openai

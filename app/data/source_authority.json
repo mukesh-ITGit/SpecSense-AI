@@ -1,0 +1,8 @@
+{
+  "manufacturer": 100,
+  "official_documentation": 90,
+  "verified_distributor": 75,
+  "distributor": 60,
+  "third_party": 40,
+  "ai_inference": 20
+}

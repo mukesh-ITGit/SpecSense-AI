@@ -1,0 +1,13 @@
+{
+  "categories": {
+    "Abrasives": {
+      "product_types": [
+        "Sanding Belt",
+        "Sanding Disc",
+        "Cut-Off Wheel",
+        "Grinding Wheel",
+        "Abrasive Disc"
+      ]
+    }
+  }
+}
