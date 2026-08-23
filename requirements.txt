@@ -10,3 +10,4 @@ openai
 PyJWT
 passlib[bcrypt]
 python-jose[cryptography]
+pydantic-settings
