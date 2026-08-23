@@ -1,0 +1,260 @@
+.summary-report-page {
+  padding: 1rem 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.report-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.print-container {
+  background: white;
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  color: #0f172a;
+}
+
+.report-header {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.header-logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.report-header h1 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+  color: #0f172a;
+}
+
+.timestamp {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.report-section {
+  margin-bottom: 2.5rem;
+}
+
+.report-section h2 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.5rem;
+}
+
+/* Stats Grid */
+.stats-grid-print {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.stat-box {
+  background: var(--bg-color);
+  padding: 1.15rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.stat-box.highlight {
+  background: var(--bg-success);
+  border-color: var(--border-success);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 650;
+  margin-bottom: 0.4rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-box.highlight .stat-value {
+  color: var(--color-success-dark);
+}
+
+/* Pipeline Grid */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.pipeline-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.pipeline-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.pipeline-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pipeline-item.warning .pipeline-val { color: var(--color-warning); }
+.pipeline-item.danger .pipeline-val { color: var(--color-danger); }
+.pipeline-item.success .pipeline-val { color: var(--color-success); }
+
+/* Issues */
+.issues-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.issue-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg-color);
+  border-radius: var(--radius-sm);
+}
+
+.issue-row strong {
+  display: block;
+  font-size: 0.875rem;
+  color: #1e293b;
+}
+
+.issue-row p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* Before/After Sample */
+.before-after-print {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.print-card {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  background: #f8fafc;
+}
+
+.print-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  background: #e2e8f0;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.print-badge.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.print-raw-text {
+  font-family: monospace;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.print-structured-data {
+  font-size: 0.875rem;
+}
+
+.attr-row {
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.attr-row strong {
+  color: #0f172a;
+  display: inline-block;
+  width: 120px;
+}
+
+.report-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.page-break-inside-avoid {
+  page-break-inside: avoid;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+  
+  body * {
+    visibility: hidden;
+  }
+  
+  .print-container, .print-container * {
+    visibility: visible;
+  }
+  
+  .print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+  
+  .stat-box {
+    border: 1px solid #cbd5e1;
+  }
+
+  /* Make sure backgrounds print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

@@ -1,0 +1,67 @@
+.auth-switch {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  color: var(--text-secondary, #64748b);
+  font-size: 0.8125rem;
+}
+
+.auth-switch button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--primary-color, #2563eb);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.auth-switch button:hover,
+.auth-switch button:focus-visible {
+  text-decoration: underline;
+  color: var(--primary-hover, #1d4ed8);
+}
+
+.login-success-alert {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-success, #a7f3d0);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-success, #ecfdf5);
+  color: var(--color-success-dark, #047857);
+  font-size: 0.875rem;
+}
+
+.account-spinner {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.account-hero-panel {
+  justify-content: center;
+}
+
+.account-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2rem;
+  color: #cbd5e1;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.account-pipeline span {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(125, 211, 252, 0.25);
+  border-radius: var(--radius-md, 8px);
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 760px) {
+  .account-hero-panel {
+    display: none;
+  }
+}

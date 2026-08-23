@@ -17,9 +17,9 @@ class ReviewService:
             needs_review = True
             reasons.append(f"Major source conflict detected ({len(conflicts)})")
             
-        if trust_score < 75:  # configurable
+        if trust_score < 85:  # Configured 85 threshold per documentation
             needs_review = True
-            reasons.append(f"Trust score below configured threshold (Score: {trust_score})")
+            reasons.append(f"Trust score below configured threshold of 85 (Score: {trust_score})")
             
         return needs_review, reasons
 

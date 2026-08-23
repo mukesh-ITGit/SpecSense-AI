@@ -2,22 +2,24 @@ import os
 import json
 import traceback
 from typing import Dict, Any
+from app.config import settings
 
 class LLMFallback:
     def __init__(self):
-        self.api_key = os.getenv("OPENAI_API_KEY", "")
+        self.api_key = settings.openai_api_key
         
     def extract(self, raw_text: str) -> Dict[str, Any]:
         """
         Uses OpenAI to parse raw text into structured JSON.
         Fails gracefully and returns empty dictionary if it fails.
         """
-        if not self.api_key:
+        # Check if API key is present and not a dummy template string
+        if not self.api_key or "your-openai" in self.api_key.lower() or "example" in self.api_key.lower() or "dummy" in self.api_key.lower() or len(self.api_key.strip()) < 10:
             return {}
             
         try:
             import openai
-            client = openai.OpenAI(api_key=self.api_key)
+            client = openai.OpenAI(api_key=self.api_key, timeout=10.0)
             
             prompt = f"""
             Extract industrial product information from the following text:

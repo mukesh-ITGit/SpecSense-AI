@@ -48,6 +48,25 @@ class RuleEngine:
                 return match.group(1), 0.90
         return None, 0.0
 
+    @staticmethod
+    def _parse_dim_numeric(val_str: str) -> float:
+        try:
+            val_str = str(val_str).strip()
+            if '-' in val_str:
+                parts = val_str.split('-')
+                whole = float(parts[0])
+                if '/' in parts[1]:
+                    frac_parts = parts[1].split('/')
+                    frac = float(frac_parts[0]) / float(frac_parts[1]) if float(frac_parts[1]) != 0 else 0.0
+                    return whole + frac
+                return whole + float(parts[1])
+            elif '/' in val_str:
+                frac_parts = val_str.split('/')
+                return float(frac_parts[0]) / float(frac_parts[1]) if float(frac_parts[1]) != 0 else 0.0
+            return float(val_str)
+        except Exception:
+            return 0.0
+
     def _extract_size(self, raw_text: str, product_type: str) -> tuple[Dict[str, str], float]:
         attrs = {}
         confidence = 0.0
@@ -68,8 +87,8 @@ class RuleEngine:
             u_l = uom[1] if len(uom) > 1 else u_w
             
             # Rough heuristic: width is usually smaller than length for belts
-            w_val = eval(w) if '/' in w else float(w)
-            l_val = eval(l) if '/' in l else float(l)
+            w_val = self._parse_dim_numeric(w)
+            l_val = self._parse_dim_numeric(l)
             if w_val > l_val:
                 w, l = l, w
             
