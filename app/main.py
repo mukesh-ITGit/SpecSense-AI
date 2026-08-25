@@ -11,6 +11,7 @@ Existing users are ALWAYS preserved.
 """
 
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -20,18 +21,34 @@ from app.config import settings
 from app.database.connection import init_db, DB_PATH
 
 
+# ---------------------------------------------------------------------------
+# Application lifespan
+# ---------------------------------------------------------------------------
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
     Application lifespan handler.
-    Runs init_db() on startup — idempotent, never destructive.
+
+    Runs init_db() on startup — idempotent and never destructive.
     """
     print(f"[SpecSense] Starting up — database: {DB_PATH}")
+
     init_db()
-    print(f"[SpecSense] Database initialized (tables created if missing, existing data preserved).")
+
+    print(
+        "[SpecSense] Database initialized "
+        "(tables created if missing, existing data preserved)."
+    )
+
     yield
+
     print("[SpecSense] Shutting down.")
 
+
+# ---------------------------------------------------------------------------
+# FastAPI application
+# ---------------------------------------------------------------------------
 
 app = FastAPI(
     title="SpecSense AI - Product Intelligence",
@@ -40,10 +57,29 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+
 # ---------------------------------------------------------------------------
-# CORS — explicit origins, no wildcard with credentials
+# CORS
 # ---------------------------------------------------------------------------
-cors_origins = settings.cors_origins_list
+#
+# IMPORTANT:
+# Frontend URL:
+# https://specsense-ai-b9m2.onrender.com
+#
+# Backend URL:
+# https://specsense-backend.onrender.com
+#
+# We explicitly allow the deployed frontend origin here.
+# ---------------------------------------------------------------------------
+
+cors_origins = list(settings.cors_origins_list)
+
+# Make sure the deployed Render frontend is always allowed.
+frontend_origin = "https://specsense-ai-b9m2.onrender.com"
+
+if frontend_origin not in cors_origins:
+    cors_origins.append(frontend_origin)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -57,9 +93,21 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 # Routers
 # ---------------------------------------------------------------------------
-app.include_router(product_router, prefix="/api/v1")
-app.include_router(auth_router, prefix="/api/v1")
 
+app.include_router(
+    product_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    auth_router,
+    prefix="/api/v1",
+)
+
+
+# ---------------------------------------------------------------------------
+# Root endpoint
+# ---------------------------------------------------------------------------
 
 @app.get("/")
 def read_root():
@@ -71,11 +119,16 @@ def read_root():
     }
 
 
+# ---------------------------------------------------------------------------
+# Health check
+# ---------------------------------------------------------------------------
+
 @app.get("/health")
 @app.get("/api/v1/health")
 def health_check():
     """
     Unauthenticated health check endpoint.
+
     Returns status: ok when backend is live and responsive.
     """
     return {
@@ -83,4 +136,3 @@ def health_check():
         "version": "2.0.0",
         "service": "SpecSense AI Backend",
     }
-
